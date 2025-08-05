@@ -11,7 +11,7 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot(String(process.env.MONGO_URI)),
+    MongooseModule.forRoot('mongodb+srv://dbUser:I7X8cxia9ABtqMV9@task-class.e33ctuh.mongo.net/task-class'),
     PostagensModule,
     JwtModule.register({
       global: true,
