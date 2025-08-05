@@ -10,6 +10,18 @@ export class PostagemService {
         return await this.postagemRepository.getAllPostagens(limit, page);
     }
 
+    async getAllPostagensSearch(search: string){
+        let query: any = {};
+        query = {
+            $or: [
+                {titulo: {$regex: search, $options: 'i'}},
+                {conteudo: {$regex: search, $options: 'i'}},
+            ],
+        };
+
+        return this.postagemRepository.searchPostagens(query)
+    }
+
     async getPostagemById(postagemId: string) {
         const postagem = await this.postagemRepository.getPostagemById(postagemId);
         if(!postagem) throw new NotFoundException('Postagem não encontrada');

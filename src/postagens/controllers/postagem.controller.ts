@@ -13,6 +13,11 @@ export class PostagemController {
         return this.postagemService.getAllPostagens(limit, page);
     }
 
+     @Get('/search')
+    async getAllPostagensSearch(@Query('search') search: string) {
+        return this.postagemService.getAllPostagensSearch(search);
+    }
+
     @Get(':postagemId')
     async getPostagemById(@Param('postagemId') postagemId: string) {
         return this.postagemService.getPostagemById(postagemId);

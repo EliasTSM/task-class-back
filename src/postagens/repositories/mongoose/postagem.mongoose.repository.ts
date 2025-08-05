@@ -34,8 +34,8 @@ export class PostagemMongooseRepository implements PostagemRepository {
         await this.postagemModel.deleteOne({ _id: postagemId }).exec();
     }
 
-    searchPostagens(limit: number, page: number, info: string): Promise<IPostagem[]> {
-        throw new Error("Method not implemented.");
+    searchPostagens(search: any): Promise<IPostagem[]> {
+        return this.postagemModel.find(search).exec();
     }
     
 }
