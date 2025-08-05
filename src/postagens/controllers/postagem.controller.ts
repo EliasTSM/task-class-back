@@ -3,8 +3,8 @@ import { PostagemService } from "../services/postagem.service";
 import type { IPostagem } from "../schemas/models/postagem.interface";
 import { ApiTags } from "@nestjs/swagger";
 
-@ApiTags('Posatgem')
-@Controller('postagem')
+@ApiTags('Postagem')
+@Controller('posts')
 export class PostagemController {
     constructor(private readonly postagemService: PostagemService){}
 
