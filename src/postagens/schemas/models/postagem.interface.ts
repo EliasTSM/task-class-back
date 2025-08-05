@@ -1,8 +1,9 @@
 export interface IPostagem {
     id?: string;
     disciplina: string;
-    turma: string;
+    turma?: string;
     titulo: string;
     conteudo: string;
-    createdAt: Date;
+    autor: string;
+    createdAt?: Date;
 } 

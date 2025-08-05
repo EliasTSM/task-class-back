@@ -26,7 +26,7 @@ export class PostagemMongooseRepository implements PostagemRepository {
 
     async updatePostagem(postagemId: string, postagem: IPostagem): Promise<void> {
         await this.postagemModel.updateOne({ _id: postagemId },
-             {disciplina: postagem.disciplina, turma: postagem.turma, titulo: postagem.titulo, conteudo: postagem.conteudo})
+             {disciplina: postagem.disciplina, turma: postagem.turma, titulo: postagem.titulo, autor:postagem.autor, conteudo: postagem.conteudo})
              .exec();
     }
 

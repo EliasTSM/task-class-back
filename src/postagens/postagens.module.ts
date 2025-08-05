@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Postagem, PostagemSchema } from './schemas/postagem.schema';
 import { PostagemRepository } from './repositories/postagem.repository';
 import { PostagemMongooseRepository } from './repositories/mongoose/postagem.mongoose.repository';
-import { PostagemSerice } from './services/postagem.service';
+import { PostagemService } from './services/postagem.service';
 import { PostagemController } from './controllers/postagem.controller';
 
 @Module({
@@ -20,7 +20,7 @@ import { PostagemController } from './controllers/postagem.controller';
             provide: PostagemRepository,
             useClass: PostagemMongooseRepository,
         },
-        PostagemSerice,
+        PostagemService,
     ],
     controllers: [
         PostagemController

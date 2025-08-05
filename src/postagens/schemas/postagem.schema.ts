@@ -18,6 +18,8 @@ export class Postagem implements IPostagem {
     @Prop()
     conteudo: string;
     @Prop()
+    autor: string;
+    @Prop()
     createdAt: Date;
 
 }
