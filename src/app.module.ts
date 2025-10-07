@@ -8,15 +8,20 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-    MongooseModule.forRoot(String(process.env.MONGO_URI)),
+    ConfigModule.forRoot({ isGlobal: true }),
+
+    // ⬇️ se MONGO_URI não existir, usa o padrão local
+    MongooseModule.forRoot(
+      process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/taskclass'
+    ),
+
     PostagensModule,
+
+    // ⬇️ idem para o JWT
     JwtModule.register({
       global: true,
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '10m'},
+      secret: process.env.JWT_SECRET || 'taskclass-dev-secret',
+      signOptions: { expiresIn: '10m' },
     }),
   ],
   controllers: [AppController],
