@@ -7,23 +7,21 @@ import { PostagemService } from './services/postagem.service';
 import { PostagemController } from './controllers/postagem.controller';
 
 @Module({
-    imports: [
-        MongooseModule.forFeature([
-            {
-                name: Postagem.name,
-                schema: PostagemSchema,
-            },
-        ]),
-    ],
-    providers: [
-        {
-            provide: PostagemRepository,
-            useClass: PostagemMongooseRepository,
-        },
-        PostagemService,
-    ],
-    controllers: [
-        PostagemController
-    ],
+  imports: [
+    MongooseModule.forFeature([
+      {
+        name: Postagem.name,
+        schema: PostagemSchema,
+      },
+    ]),
+  ],
+  providers: [
+    {
+      provide: PostagemRepository,
+      useClass: PostagemMongooseRepository,
+    },
+    PostagemService,
+  ],
+  controllers: [PostagemController],
 })
 export class PostagensModule {}

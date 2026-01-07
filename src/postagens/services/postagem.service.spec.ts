@@ -43,14 +43,16 @@ describe('PostagemSerice', () => {
 
   describe('getAllPostagens', () => {
     it('should call repository.getAllPostagens and return the result', async () => {
-      const expectedPostagens: IPostagem[] = [{
-          id: '1', 
-          titulo: 'Post 1', 
+      const expectedPostagens: IPostagem[] = [
+        {
+          id: '1',
+          titulo: 'Post 1',
           conteudo: 'Conteudo 1',
           disciplina: 'disciplina 1',
           turma: 'Turma 1',
           autor: 'Autor 1',
-      }];
+        },
+      ];
       repository.getAllPostagens.mockResolvedValue(expectedPostagens);
 
       const result = await service.getAllPostagens(10, 1);
@@ -64,10 +66,12 @@ describe('PostagemSerice', () => {
     it('should call repository.getPostagemById and return the postagem if found', async () => {
       const postagemId = 'some-id';
       const expectedPostagem: IPostagem = {
-          id: postagemId, titulo: 'Post Teste', conteudo: 'Conteudo Teste',
-          disciplina: 'Disciplina Teste',
-          turma: 'Turma Teste',
-          autor: 'Autor Teste',
+        id: postagemId,
+        titulo: 'Post Teste',
+        conteudo: 'Conteudo Teste',
+        disciplina: 'Disciplina Teste',
+        turma: 'Turma Teste',
+        autor: 'Autor Teste',
       };
       repository.getPostagemById.mockResolvedValue(expectedPostagem);
 
@@ -81,8 +85,12 @@ describe('PostagemSerice', () => {
       const postagemId = 'non-existent-id';
       repository.getPostagemById.mockResolvedValue(null);
 
-      await expect(service.getPostagemById(postagemId)).rejects.toThrow(NotFoundException);
-      await expect(service.getPostagemById(postagemId)).rejects.toThrow('Postagem não encontrada');
+      await expect(service.getPostagemById(postagemId)).rejects.toThrow(
+        NotFoundException,
+      );
+      await expect(service.getPostagemById(postagemId)).rejects.toThrow(
+        'Postagem não encontrada',
+      );
       expect(repository.getPostagemById).toHaveBeenCalledWith(postagemId);
     });
   });
@@ -90,9 +98,10 @@ describe('PostagemSerice', () => {
   describe('createPostagem', () => {
     it('should call repository.createPostagem and return the created postagem', async () => {
       const newPostagem: IPostagem = {
-          titulo: 'Novo Post', conteudo: 'Conteudo do novo post',
-          disciplina: 'Disciplina',
-          autor: 'Autor'
+        titulo: 'Novo Post',
+        conteudo: 'Conteudo do novo post',
+        disciplina: 'Disciplina',
+        autor: 'Autor',
       };
       const createdPostagem: IPostagem = { id: 'new-id', ...newPostagem };
       repository.createPostagem.mockResolvedValue(createdPostagem);
@@ -108,16 +117,20 @@ describe('PostagemSerice', () => {
     it('should call repository.updatePostagem and return the updated postagem', async () => {
       const postagemId = 'some-id';
       const updateData: IPostagem = {
-          titulo: 'Titulo Atualizado', conteudo: 'Conteudo Atualizado',
-          disciplina: 'Disciplina Atualizada',
-          autor: 'Autor Atualizado'
+        titulo: 'Titulo Atualizado',
+        conteudo: 'Conteudo Atualizado',
+        disciplina: 'Disciplina Atualizada',
+        autor: 'Autor Atualizado',
       };
       const updatedPostagem: IPostagem = { id: postagemId, ...updateData };
       repository.updatePostagem.mockResolvedValue(updatedPostagem);
 
       const result = await service.updatePostagem(postagemId, updateData);
 
-      expect(repository.updatePostagem).toHaveBeenCalledWith(postagemId, updateData);
+      expect(repository.updatePostagem).toHaveBeenCalledWith(
+        postagemId,
+        updateData,
+      );
       expect(result).toEqual(updatedPostagem);
     });
   });
