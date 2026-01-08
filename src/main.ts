@@ -16,12 +16,12 @@ async function bootstrap() {
   const studentPass = await bcrypt.hash('aluno123', 10);
 
   await users.createIfNotExists({
-    email: 'admin@escola.com',
+    email: 'admin@taskclass.com',
     passwordHash: adminPass,
     role: 'admin',
   });
   await users.createIfNotExists({
-    email: 'aluno@escola.com',
+    email: 'aluno@taskclass.com',
     passwordHash: studentPass,
     role: 'student',
   });
