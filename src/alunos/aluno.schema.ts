@@ -13,7 +13,7 @@ export class Aluno {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Turma' })
   turmaId: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   responsavelId: string;
 }
 
