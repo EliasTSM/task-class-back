@@ -2,33 +2,46 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as bcrypt from 'bcrypt';
 import { AppModule } from './app.module';
-import { UsersService } from './users/users.service';
+import { UserService } from './users/user.service';
+import { UserRole } from './common/enums/user-role.enum';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+    }),
+  );
 
-  // Seed simples (faculdade): cria admin e student se não existirem
-  const users = app.get(UsersService);
+  const users = app.get(UserService);
 
-  const adminPass = await bcrypt.hash('admin123', 10);
-  const studentPass = await bcrypt.hash('aluno123', 10);
+  const coordenadorPass = await bcrypt.hash('coordenador123', 10);
+  const responsavelPass = await bcrypt.hash('responsavel123', 10);
+  const professorPass = await bcrypt.hash('professor123', 10);
 
   await users.createIfNotExists({
-    email: 'admin@taskclass.com',
-    passwordHash: adminPass,
-    role: 'admin',
+    nome: 'Coordenador',
+    email: 'coordenador@taskclass.com',
+    senha: coordenadorPass,
+    role: UserRole.COORDENACAO,
   });
+
   await users.createIfNotExists({
-    email: 'aluno@taskclass.com',
-    passwordHash: studentPass,
-    role: 'student',
+    nome: 'Responsavel Teste',
+    email: 'responsavel@taskclass.com',
+    senha: responsavelPass,
+    role: UserRole.RESPONSAVEL,
+  });
+
+  await users.createIfNotExists({
+    nome: 'Professor Teste',
+    email: 'professor@taskclass.com',
+    senha: professorPass,
+    role: UserRole.PROFESSOR,
   });
 
   await app.listen(3000);
 }
-bootstrap().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+bootstrap();

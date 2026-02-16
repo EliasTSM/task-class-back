@@ -1,29 +1,48 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { UsersService } from '../users/users.service';
+import { UserService } from '../users/user.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private users: UsersService,
-    private jwt: JwtService,
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
   ) {}
 
-  async login(email: string, password: string) {
-    const user = await this.users.findByEmail(email);
-    if (!user) throw new UnauthorizedException('Credenciais inválidas');
+  async validateUser(email: string, senha: string) {
+    const user = await this.userService.getByEmail(email);
 
-    const ok = await bcrypt.compare(password, user.passwordHash);
-    if (!ok) throw new UnauthorizedException('Credenciais inválidas');
+    if (!user) {
+      throw new UnauthorizedException('Credenciais inválidas');
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      senha,
+      user.senha,
+    );
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Credenciais inválidas');
+    }
+
+    return user;
+  }
+
+  async login(email: string, senha: string) {
+    const user = await this.validateUser(email, senha);
 
     const payload = {
-      sub: user._id.toString(),
-      role: user.role,
+      sub: user._id,
       email: user.email,
+      role: user.role,
     };
-    const access_token = await this.jwt.signAsync(payload);
 
-    return { access_token, role: user.role };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 }
