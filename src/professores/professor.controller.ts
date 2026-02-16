@@ -21,28 +21,24 @@ import { AuthGuard } from '@nestjs/passport';
 export class ProfessorController {
   constructor(private readonly professorService: ProfessorService) {}
 
-  // 🔎 Coordenação pode ver todos
   @Get()
   @Roles(UserRole.COORDENACAO)
   async getAll() {
     return this.professorService.getAll();
   }
 
-  // 🔎 Coordenação pode buscar por ID
   @Get(':id')
   @Roles(UserRole.COORDENACAO)
   async getById(@Param('id') id: string) {
     return this.professorService.getById(id);
   }
 
-  // ➕ Apenas Coordenação pode criar
   @Post()
   @Roles(UserRole.COORDENACAO)
   async create(@Body() professor: IProfessor) {
     return this.professorService.create(professor);
   }
 
-  // ✏️ Apenas Coordenação pode editar
   @Put(':id')
   @Roles(UserRole.COORDENACAO)
   async update(
@@ -52,7 +48,6 @@ export class ProfessorController {
     return this.professorService.update(id, professor);
   }
 
-  // ❌ Apenas Coordenação pode excluir
   @Delete(':id')
   @Roles(UserRole.COORDENACAO)
   async delete(@Param('id') id: string) {

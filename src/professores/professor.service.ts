@@ -10,18 +10,15 @@ export class ProfessorService {
     private readonly professorModel: Model<Professor>,
   ) {}
 
-  // ✅ Criar professor (Coordenação)
   async create(dto: any) {
     const professor = await this.professorModel.create(dto);
     return professor;
   }
 
-  // ✅ Listar todos
   async getAll() {
     return this.professorModel.find();
   }
 
-  // ✅ Buscar por ID
   async getById(id: string) {
     const professor = await this.professorModel.findById(id);
 
@@ -32,7 +29,6 @@ export class ProfessorService {
     return professor;
   }
 
-  // ✅ Atualizar professor
   async update(id: string, dto: any) {
     const updated = await this.professorModel.findByIdAndUpdate(
       id,
@@ -47,7 +43,6 @@ export class ProfessorService {
     return updated;
   }
 
-  // ✅ Deletar professor
   async delete(id: string) {
     const deleted = await this.professorModel.findByIdAndDelete(id);
 

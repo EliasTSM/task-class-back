@@ -19,7 +19,7 @@ export class JustificativaService {
     const data = await this.justificativaModel
       .find()
       .populate('alunoId')
-      .populate('responsavelId')
+      .populate('presencaId')
       .limit(limit)
       .skip(skip);
 
@@ -31,14 +31,14 @@ export class JustificativaService {
   async getByAluno(alunoId: string) {
     return this.justificativaModel
       .find({ alunoId })
-      .populate('responsavelId');
+      .populate('presencaId');
   }
 
   async getById(id: string) {
     const justificativa = await this.justificativaModel
       .findById(id)
       .populate('alunoId')
-      .populate('responsavelId');
+      .populate('presencaId');
 
     if (!justificativa) {
       throw new NotFoundException('Justificativa não encontrada');
@@ -51,7 +51,7 @@ export class JustificativaService {
     const newJustificativa = new this.justificativaModel({
       ...data,
       alunoId: new Types.ObjectId(data.alunoId),
-      responsavelId: new Types.ObjectId(data.responsavelId),
+      presencaId: new Types.ObjectId(data.presencaId),
       aprovado: false,
     });
 

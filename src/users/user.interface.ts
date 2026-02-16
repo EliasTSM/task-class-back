@@ -6,7 +6,6 @@ export interface IUser extends Document {
   email: string;
   senha: string;
   role: UserRole;
-
   createdAt: Date;
   updatedAt: Date;
 }

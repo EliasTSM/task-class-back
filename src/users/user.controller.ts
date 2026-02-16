@@ -20,28 +20,24 @@ import { UserRole } from '../common/enums/user-role.enum';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // 🔎 Apenas coordenação pode listar usuários
   @Get()
   @Roles(UserRole.COORDENACAO)
   async getAll() {
     return this.userService.getAll();
   }
 
-  // 🔎 Coordenação pode buscar por ID
   @Get(':id')
   @Roles(UserRole.COORDENACAO)
   async getById(@Param('id') id: string) {
     return this.userService.getById(id);
   }
 
-  // ➕ Coordenação cria usuário
   @Post()
   @Roles(UserRole.COORDENACAO)
   async create(@Body() user: IUser) {
     return this.userService.create(user);
   }
 
-  // ✏️ Coordenação pode editar
   @Put(':id')
   @Roles(UserRole.COORDENACAO)
   async update(
@@ -51,7 +47,6 @@ export class UserController {
     return this.userService.update(id, user);
   }
 
-  // ❌ Coordenação pode excluir
   @Delete(':id')
   @Roles(UserRole.COORDENACAO)
   async delete(@Param('id') id: string) {

@@ -21,7 +21,6 @@ import { UserRole } from '../common/enums/user-role.enum';
 export class JustificativaController {
   constructor(private readonly justificativaService: JustificativaService) {}
 
-  // 🔎 Coordenação pode ver todas
   @Get()
   @Roles(UserRole.COORDENACAO)
   async getAll(
@@ -31,35 +30,30 @@ export class JustificativaController {
     return this.justificativaService.getAll(Number(limit), Number(page));
   }
 
-  // 🔎 Coordenação e responsável podem ver por aluno
   @Get('aluno/:alunoId')
   @Roles(UserRole.COORDENACAO, UserRole.RESPONSAVEL)
   async getByAluno(@Param('alunoId') alunoId: string) {
     return this.justificativaService.getByAluno(alunoId);
   }
 
-  // ➕ Responsável cria justificativa
   @Post()
   @Roles(UserRole.RESPONSAVEL)
   async create(@Body() justificativa: IJustificativa) {
     return this.justificativaService.create(justificativa);
   }
 
-  // ✅ Coordenação aprova
   @Patch(':id/aprovar')
   @Roles(UserRole.COORDENACAO)
   async aprovar(@Param('id') id: string) {
     return this.justificativaService.aprovar(id);
   }
 
-  // ❌ Coordenação reprova
   @Patch(':id/reprovar')
   @Roles(UserRole.COORDENACAO)
   async reprovar(@Param('id') id: string) {
     return this.justificativaService.reprovar(id);
   }
 
-  // ❌ Coordenação pode excluir
   @Delete(':id')
   @Roles(UserRole.COORDENACAO)
   async delete(@Param('id') id: string) {

@@ -15,7 +15,6 @@ export class TurmaService {
 
     const data = await this.turmaModel
       .find()
-      .populate('professorId')
       .limit(limit)
       .skip(skip);
 
@@ -32,7 +31,6 @@ export class TurmaService {
   async getById(id: string) {
     const turma = await this.turmaModel
       .findById(id)
-      .populate('professorId');
 
     if (!turma) {
       throw new NotFoundException('Turma não encontrada');
@@ -43,8 +41,7 @@ export class TurmaService {
 
   async create(turma: ITurma) {
     const newTurma = new this.turmaModel({
-      ...turma,
-      professorId: new Types.ObjectId(turma.professorId),
+      ...turma
     });
 
     return newTurma.save();

@@ -21,7 +21,6 @@ import { UserRole } from '../common/enums/user-role.enum';
 export class PresencaController {
   constructor(private readonly presencaService: PresencaService) {}
 
-  // 🔎 Coordenação pode ver tudo
   @Get()
   @Roles(UserRole.COORDENACAO)
   async getAll(
@@ -31,28 +30,24 @@ export class PresencaController {
     return this.presencaService.getAll(Number(limit), Number(page));
   }
 
-  // 🔎 Professor pode ver por turma
   @Get('turma/:turmaId')
   @Roles(UserRole.COORDENACAO, UserRole.PROFESSOR)
   async getByTurma(@Param('turmaId') turmaId: string) {
     return this.presencaService.getByTurma(turmaId);
   }
 
-  // 🔎 Professor e Coordenação podem ver por aluno
   @Get('aluno/:alunoId')
   @Roles(UserRole.COORDENACAO, UserRole.PROFESSOR)
   async getByAluno(@Param('alunoId') alunoId: string) {
     return this.presencaService.getByAluno(alunoId);
   }
 
-  // ➕ Professor pode lançar presença
   @Post()
   @Roles(UserRole.PROFESSOR)
   async create(@Body() presenca: IPresenca) {
     return this.presencaService.create(presenca);
   }
 
-  // ✏️ Coordenação pode editar
   @Put(':id')
   @Roles(UserRole.COORDENACAO)
   async update(
@@ -62,7 +57,6 @@ export class PresencaController {
     return this.presencaService.update(id, presenca);
   }
 
-  // ❌ Coordenação pode excluir
   @Delete(':id')
   @Roles(UserRole.COORDENACAO)
   async delete(@Param('id') id: string) {

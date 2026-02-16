@@ -18,6 +18,16 @@ export class AlunoService {
     return this.alunoModel.find().populate('turmaId');
   }
 
+  async getById(id: string) {
+    const aluno = await this.alunoModel.findById(id);
+
+    if (!aluno) {
+      throw new NotFoundException('Aluno não encontrado');
+    }
+
+    return aluno;
+  }
+
   async update(id: string, dto: any) {
     const updated = await this.alunoModel.findByIdAndUpdate(id, dto, { new: true });
     if (!updated) throw new NotFoundException('Aluno não encontrado');

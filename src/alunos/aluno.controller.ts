@@ -16,9 +16,15 @@ export class AlunoController {
   }
 
   @Get()
-  @Roles(UserRole.COORDENACAO)
+  @Roles(UserRole.COORDENACAO, UserRole.PROFESSOR)
   findAll() {
     return this.alunoService.findAll();
+  }
+
+  @Get(':id')
+  @Roles(UserRole.COORDENACAO, UserRole.PROFESSOR)
+  async getById(@Param('id') id: string) {
+    return this.alunoService.getById(id);
   }
 
   @Put(':id')

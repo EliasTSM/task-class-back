@@ -21,7 +21,6 @@ import { UserRole } from '../common/enums/user-role.enum';
 export class TurmaController {
   constructor(private readonly turmaService: TurmaService) {}
 
-  // 🔎 Coordenação e Professor podem visualizar
   @Get()
   @Roles(UserRole.COORDENACAO, UserRole.PROFESSOR)
   async getAll(
@@ -37,14 +36,12 @@ export class TurmaController {
     return this.turmaService.getById(id);
   }
 
-  // ➕ Apenas Coordenação cria
   @Post()
   @Roles(UserRole.COORDENACAO)
   async create(@Body() turma: ITurma) {
     return this.turmaService.create(turma);
   }
 
-  // ✏️ Apenas Coordenação edita
   @Put(':id')
   @Roles(UserRole.COORDENACAO)
   async update(
@@ -54,7 +51,6 @@ export class TurmaController {
     return this.turmaService.update(id, turma);
   }
 
-  // ❌ Apenas Coordenação exclui
   @Delete(':id')
   @Roles(UserRole.COORDENACAO)
   async delete(@Param('id') id: string) {

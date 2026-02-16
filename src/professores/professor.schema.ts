@@ -1,23 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import { UserRole } from '../common/enums/user-role.enum';
+import mongoose from 'mongoose';
 
 export type ProfessorDocument = Professor & Document;
 
 @Schema({ timestamps: true })
 export class Professor {
 
-  @Prop({ required: true })
-  nome: string;
-
-  @Prop({ required: true, unique: true })
-  email: string;
-
-  @Prop({ required: true, unique: true })
-  cpf: string;
-
-  @Prop()
-  telefone?: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
+  userId: string;
 
   @Prop({ type: [String], required: true })
   materias: string[];
@@ -27,13 +18,6 @@ export class Professor {
     default: [],
   })
   turmas: Types.ObjectId[];
-
-  @Prop({
-    type: String,
-    enum: UserRole,
-    default: UserRole.PROFESSOR,
-  })
-  role: UserRole;
 
   @Prop({ default: true })
   ativo: boolean;
