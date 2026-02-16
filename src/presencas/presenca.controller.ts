@@ -43,13 +43,13 @@ export class PresencaController {
   }
 
   @Post()
-  @Roles(UserRole.PROFESSOR)
+  @Roles(UserRole.COORDENACAO, UserRole.PROFESSOR)
   async create(@Body() presenca: IPresenca) {
     return this.presencaService.create(presenca);
   }
 
   @Put(':id')
-  @Roles(UserRole.COORDENACAO)
+  @Roles(UserRole.COORDENACAO, UserRole.PROFESSOR)
   async update(
     @Param('id') id: string,
     @Body() presenca: Partial<IPresenca>,

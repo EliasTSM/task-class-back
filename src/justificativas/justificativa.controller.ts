@@ -37,7 +37,7 @@ export class JustificativaController {
   }
 
   @Post()
-  @Roles(UserRole.RESPONSAVEL)
+  @Roles(UserRole.COORDENACAO, UserRole.RESPONSAVEL)
   async create(@Body() justificativa: IJustificativa) {
     return this.justificativaService.create(justificativa);
   }
