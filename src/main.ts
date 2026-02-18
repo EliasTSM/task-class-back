@@ -15,6 +15,8 @@ async function bootstrap() {
     }),
   );
 
+  app.enableCors();
+
   const users = app.get(UserService);
 
   const coordenadorPass = await bcrypt.hash('coordenador123', 10);
