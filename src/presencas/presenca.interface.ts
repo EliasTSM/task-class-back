@@ -6,6 +6,7 @@ export interface IPresenca extends Document {
   turmaId: Types.ObjectId;
   data: Date;
   status: StatusPresenca;
+  observacao?: String;
   createdAt: Date;
   updatedAt: Date;
 }

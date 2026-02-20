@@ -20,6 +20,9 @@ export class Presenca {
 
   @Prop({ enum: StatusPresenca, required: true })
   status: StatusPresenca;
+
+  @Prop()
+  observacao: string;
 }
 
 export const PresencaSchema = SchemaFactory.createForClass(Presenca);
