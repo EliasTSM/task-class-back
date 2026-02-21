@@ -4,8 +4,8 @@ import mongoose from 'mongoose';
 @Schema({ timestamps: true })
 export class Aluno {
 
-  @Prop({ required: true })
-  nome: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
+  userId: string;
 
   @Prop({ required: true, unique: true })
   matricula: string;

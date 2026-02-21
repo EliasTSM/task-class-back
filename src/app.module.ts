@@ -8,6 +8,7 @@ import { PresencaModule } from './presencas/presenca.module';
 import { ProfessorModule } from './professores/professor.module';
 import { TurmaModule } from './turmas/turma.module';
 import { UserModule } from './users/user.module';
+import { PostagensModule } from './postagens/postagem.module';
 
 
 @Module({
@@ -24,7 +25,8 @@ import { UserModule } from './users/user.module';
     PresencaModule,
     AuthModule,
     TurmaModule,
-    UserModule
+    UserModule,
+    PostagensModule
   ],
 })
 export class AppModule {}
